@@ -12,7 +12,12 @@
 <section class="panel">
   <!-- Panel Title -->
   <header class="panel-heading" style="display: flex; justify-content: space-between; align-items: center;">
-    <h4 class="panel-title"><i class="fas fa-table"></i>&nbsp;&nbsp;Tabel Adendum Perjanjian Kerja Sama</h4>
+    <h4 class="panel-title"><i class="fas fa-table"></i>&nbsp;&nbsp;Tabel Pesanan Perjanjian Kerja Sama</h4>
+    <h4 class="panel-title">
+      <a href="<?= base_url('kerja/order/insert')?>" class="btn btn-default btn-tambah-pesanan">
+        <i class="fas fa-pen-nib"></i>&nbsp;&nbsp;Order Perjanjian Kerja Sama Baru
+      </a>
+    </h4>
   </header>
   <!-- Panel Table -->
   <div class="tabs-custom">
@@ -23,9 +28,10 @@
             <thead>
               <tr>
                 <th class="text-center">Kode Sistem</th>
-                <th class="text-center">Perjanjian Kerja Sama</th>
-                <th class="text-center">Tanggal</th>
                 <th class="text-center">User</th>
+                <th class="text-center">Tanggal</th>
+                <th class="text-center">Jumlah Order</th>
+                <th class="text-center">Saldo</th>
                 <th class="text-center">Detail</th>
               </tr>
             </thead>
@@ -33,12 +39,13 @@
               <?php foreach ($result as $row): ?>
               <tr>
                 <td class="text-center"><?php echo html_escape($row['uuid']); ?></td>
-                <td class="text-center"><?php echo html_escape($row['nomor_kontrak']); ?></td>
-                <td class="text-center"><?php echo html_escape($row['tanggal']); ?></td>
                 <td class="text-center"><?php echo html_escape($row['user']); ?></td>
+                <td class="text-center"><?php echo html_escape($row['tanggal_order']); ?></td>
+                <td class="text-center"><?php echo html_escape($row['kuantitas']); ?></td>
+                <td class="text-center"><?php echo html_escape($row['saldo']); ?></td>
                 <!-- Detail -->
                 <td class="text-center">
-                  <a href="<?= base_url('kerja/adendum/detail/' . $row['uuid']); ?>" class="btn btn-circle icon btn-info">
+                  <a href="<?= base_url('kerja/order/detail/' . $row['uuid']); ?>" class="btn btn-circle icon btn-info">
                     <i class="fas fa-eye"></i>
                   </a>
                 </td>

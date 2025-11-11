@@ -101,6 +101,22 @@ class Kerja_model extends MY_Model {
     return $uuid;
   }
 
+  public function DetailRevisi($uuid){
+    // uuid, nomor_kontrak, tanggal, alasan, user
+    $column = "uuid, nomor_kontrak, tanggal, alasan, user";
+    $sqlquery = "SELECT $column FROM tabel_adendum_kerjasama WHERE uuid = ?";
+    $result = $this->db->query($sqlquery, array($uuid));
+    return $result->row_array();
+  }
+
+  public function DetailRevisiContent($uuid){
+    // 
+    $column = "nomor_kontrak, nama_pekerjaan, tanggal_mulai, tanggal_selesai, harga_satuan";
+    $sqlquery = "SELECT $column FROM tabel_kerja_sama_history WHERE adendum_uuid_trigger = ?";
+    $result = $this->db->query($sqlquery, array($uuid));
+    return $result->row_array();
+  }
+
   public function PublishDetail($uuid, $serial){
     // ?
     // ?
@@ -135,12 +151,79 @@ class Kerja_model extends MY_Model {
       "jumlah" => $inputs['terima']
     );
     // Publish Data & Result
-    return $this->db->insert('tabel_penerimaan_liquid', $insert);
+    $this->db->insert('tabel_penerimaan_liquid', $insert);
+    $sqlquery = "UPDATE tabel_gases SET stock = stock + ? WHERE id = 1";
+    return $this->db->query($sqlquery, [$inputs['terima']]);
   }
 
   public function DetailDeliver($uuid){
     // Detail Penerimaan Gas Medis
     $sqlquery = "SELECT * FROM tabel_penerimaan_liquid WHERE uuid = ?";
+    $result = $this->db->query($sqlquery, [$uuid]);
+    return $result->row_array();
+  }
+
+  public function YearlyTable(){
+    // ?
+    $column = "uuid, user, tanggal_mulai, tanggal_selesai, estimasi_kuantitas, estimasi_saldo";
+    $sqlquery = "SELECT $column FROM tabel_surat_kerjasama";
+    $result = $this->db->query($sqlquery);
+    return $result->result_array();
+  }
+
+  public function PublishYearly($inputs){
+    // ?
+    $uuid = !empty($inputs['uuid']) ? $inputs['uuid'] : $this->uuid->v4();
+    // Variable Input
+    $insert = array(
+      "uuid" => $uuid,
+      "kontrak_identifier" => $inputs['kontrak'],
+      "tanggal_mulai" => $inputs['tanggal_mulai'],
+      "tanggal_selesai" => $inputs["tanggal_selesai"],
+      "user" => $inputs["user"],
+      "estimasi_kuantitas" => $inputs["estimasi_kuantitas"],
+      "estimasi_saldo" => $inputs["estimasi_saldo"]
+    );
+    // Publish Data & Result
+    $this->db->insert("tabel_surat_kerjasama", $insert);
+  }
+
+  public function DetailYearly($uuid){
+    // ?
+    $column = "uuid, user, tanggal_mulai, tanggal_selesai, estimasi_kuantitas, estimasi_saldo";
+    $sqlquery = "SELECT $column FROM tabel_surat_kerjasama WHERE uuid = ?";
+    $result = $this->db->query($sqlquery, [$uuid]);
+    return $result->row_array();
+  }
+
+  public function TabelOrder(){
+    // ?
+    $column = "uuid, user, tanggal_order, kuantitas, saldo";
+    $sqlquery = "SELECT $column FROM tabel_order_kerjasama";
+    $result = $this->db->query($sqlquery);
+    return $result->result_array();
+  }
+
+  public function PublishOrder(){
+    // ?
+    $uuid = !empty($inputs['uuid']) ? $inputs['uuid'] : $this->uuid->v4();
+    // Variable Input
+    $insert = array(
+      "uuid" => $uuid,
+      "kontrak_identifier" => $inputs['kontrak'],
+      "tanggal_mulai" => $inputs['tanggal_mulai'],
+      "tanggal_selesai" => $inputs["tanggal_selesai"],
+      "user" => $inputs["user"],
+      "estimasi_kuantitas" => $inputs["estimasi_kuantitas"],
+      "estimasi_saldo" => $inputs["estimasi_saldo"]
+    );
+    // Publish Data & Result
+    $this->db->insert("tabel_surat_kerjasama", $insert);
+  }
+
+  public function DetailOrder($uuid){
+    // ?
+    $sqlquery = "SELECT * FROM tabel_order_kerjasama WHERE uuid = ?";
     $result = $this->db->query($sqlquery, [$uuid]);
     return $result->row_array();
   }

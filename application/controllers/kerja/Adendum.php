@@ -83,10 +83,12 @@ class Adendum extends MY_Controller {
     $primera = $this->kerja_model->DetailRevisi($uuid);
     // File Result
     $this->data['primer'] = $primera;
-    // File Result Value (Older)
-    $this->data['olders'] = $this->kerja_model->DetailKerja($primera[0]['kontrak_identifier']);
     // File Result Value
-    $this->data['result'] = $this->kerja_model->DetailRevisiContent($uuid);
+    $keys = ['uuid', 'judul', 'tanggal_mulai', 'tanggal_selesai', 'harga_satuan'];
+    $temps = $this->kerja_model->DetailKerja($primera['nomor_kontrak']);
+    $this->data['result'] = array_intersect_key($temps, array_flip($keys));
+    // File Result Value (Older)
+    $this->data['olders'] = $this->kerja_model->DetailRevisiContent($uuid);
     // File Config
     $this->data['title'] = 'Tabel Detail Revisi';
     $this->data['sub_page'] = 'kerja/adendum/detail';

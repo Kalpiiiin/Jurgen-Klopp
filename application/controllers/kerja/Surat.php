@@ -2,7 +2,14 @@
 // ?
 
 class Surat extends Admin_Controller {
-
+  // ?
+  protected $role;
+  // Parent Class Construct & Role & Variable
+  public function __construct(){
+    parent::__construct();
+    $this->role = 'kontrak';
+    $this->load->model(array('kerja_model'));
+  }
 
   public function index(){
     // Controller to Control Primary Table of Yearly Order (Perjanjian Kerja Sama)

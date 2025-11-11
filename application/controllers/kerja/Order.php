@@ -2,6 +2,14 @@
 // ?
 
 class Order extends Admin_Controller {
+  // ?
+  protected $role;
+  // Parent Class Construct & Role & Variable
+  public function __construct(){
+    parent::__construct();
+    $this->role = 'kontrak';
+    $this->load->model(array('kerja_model'));
+  }
 
   public function index(){
     // Controller to Control Primary Table of Order (Perjanjian Kerja Sama)
@@ -9,7 +17,7 @@ class Order extends Admin_Controller {
       access_denied();
     }
     // File Result
-    $this->data['result'] = $this->kerja_model->TabelOrda();
+    $this->data['result'] = $this->kerja_model->TabelOrder();
     // File
     $this->data['title'] = 'Tabel Pesanan Liquid Oxygen';
     $this->data['sub_page'] = 'kerja/order/index';
@@ -17,7 +25,7 @@ class Order extends Admin_Controller {
     $this->load->view('layout/index', $this->data);
   }
 
-  public function insert($uuid){
+  public function insert(){
     // Controlller to Handle Formulir of Order (Perjanjian Kerja Sama)
     if (!get_permission($this->role, 'is_add')){
       access_denied();

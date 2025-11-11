@@ -91,6 +91,10 @@
         <div class="form-group">
           <!-- Harga Satuan -->
           <label for="terima" class="form-label">Total Terima Gas Medis (Meter Kubik)</label>
+          <!-- Hallo, Penjelasan 3 ! -->
+          <span id="finalisimo_alert" style="color: #007bff; cursor: pointer; margin-left: 5px;">
+            <i class="fas fa-info-circle"></i>
+          </span>
           <input type="number" name="terima" id="terima" class="form-control" readonly>
         </div>
         <!-- Footer Panel -->
@@ -129,7 +133,7 @@
       $('#selisih_berat').val(selisih);
       let konverta = selisih * 0.7768;
       $('#konversi').val(konverta)
-      let final = konverta - 131;
+      let final = konverta - 131.0;
       $('#terima').val(final);
     }
     // Input Berat Awal & Berat Akhir Auto Calculate Weight
@@ -138,11 +142,34 @@
     });
     // Selisih Nilai Berat
     $('#info_selisih_alert').on('click', function() {
-      alert("Selisih dari Berat Awal - Berat Akhir");
+      Swal.fire({
+        title: 'Info !',
+        html: "Selisih dari Berat Awal - Berat Akhir",
+        type: 'info',
+        confirmButtonText: 'OK'
+      });
     });
     // Selisih Nilai Konversi
     $('#nilai_ubah_alert').on('click', function() {
-      alert("Nilai Selisih di Kali 0.7768 !");
+      Swal.fire({
+        title: 'Info !',
+        html: "Selisih dari Berat Awal - Berat Akhir di Kali 0.7768",
+        type: 'info',
+        confirmButtonText: 'OK'
+      });
     });
+    // Selisih Nilai Konversi
+    $('#finalisimo_alert').on('click', function() {
+      Swal.fire({
+        title: 'Info !',
+        html: "Hasil Pengalian di Kurangi 131",
+        type: 'info',
+        confirmButtonText: 'OK'
+      });
+    });
+    // Tanggal
+    const today = new Date();
+    const formatDate = (date) => date.toISOString().split("T")[0];
+    $('#tanggal').val(formatDate(today));
   })
 </script>
