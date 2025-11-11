@@ -16,7 +16,7 @@ class Gases extends Admin_Controller {
     if (!get_permission($this->role, 'is_view')){
       access_denied();
     }
-    // File Configuration
+    // File
     $this->data['title'] = 'Tabel Master Gas Medis';
     $this->data['sub_page'] = 'gases/index';
     $this->data['main_menu'] = 'gases';
@@ -101,8 +101,9 @@ class Gases extends Admin_Controller {
     $id = $this->input->post('data_edit_gases');
     // Define Table Variable
     $column = 'id, gases, unit, stock';
-    $data = $this->master_model->GlobalSelect('tabel_gases', $column, false, ['id' => $id]);
-    echo json_encode($data);
+    $result = $this->master_model->GlobalSelect('tabel_gases', $column, false, ['id' => $id]);
+    // Return Result
+    echo json_encode($result);
   }
 
   public function delete(){

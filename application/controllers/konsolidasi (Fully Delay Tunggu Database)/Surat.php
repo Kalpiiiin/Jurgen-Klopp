@@ -17,7 +17,7 @@ class Surat extends Admin_Controller {
     }
     // File Result
     $this->data['result'] = $this->konsolidasi_model->YearlyTable();
-    // File Configuration
+    // File
     $this->data['title'] = 'Tabel Perjanjian Konsolidasi Tahunan';
     $this->data['sub_page'] = 'konsolidasi/surat/index';
     $this->data['main_menu'] = 'konsolidasi';
@@ -32,7 +32,7 @@ class Surat extends Admin_Controller {
     // File Result
     // Content Heavily Relate to Identifier While Meta Data Stay Unavailable (Yet)
     $this->data['content'] = $this->konsolidasi_model->YearlyResult($uuid);
-    // File Configuration
+    // File
     $this->data['title'] = 'Input Surat Pesanan Konsolidasi';
     $this->data['sub_page'] = 'konsolidasi/surat/insert';
     $this->data['main_menu'] = 'konsolidasi';

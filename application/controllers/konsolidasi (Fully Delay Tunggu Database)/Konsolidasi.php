@@ -19,7 +19,7 @@ class Konsolidasi extends Admin_Controller {
     }
     // File Result
     $this->data['result'] = $this->konsolidasi_model->TabelKonsolidasi();
-    // File Configuration
+    // File
     $this->data['title'] = 'Tabel Perjanjian Konsolidasi';
     $this->data['sub_page'] = 'konsolidasi/konsolidasi/index';
     $this->data['main_menu'] = 'konsolidasi';
@@ -31,7 +31,7 @@ class Konsolidasi extends Admin_Controller {
     if (!get_permission($this->role, 'is_add')){
       access_denied();
     }
-    // File Configuration
+    // File
     $this->data['title'] = 'Input Perjanjian Konsolidasi';
     $this->data['sub_page'] = 'konsolidasi/konsolidasi/insert';
     $this->data['main_menu'] = 'konsolidasi';
